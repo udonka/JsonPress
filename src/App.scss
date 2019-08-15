@@ -1,0 +1,268 @@
+
+$indent-width: 2em;
+
+/* */
+$color-key: #E7F7FB;
+$color-value: #F5FDFF;
+
+$color-array: #F4FDEA;
+$color-object: #FDEFEF;
+
+//*/
+
+
+/*
+$color-key: transparent;
+$color-value: transparent;
+
+$color-array: transparent; 
+$color-object: transparent;
+//*/
+
+
+$color-token: #aaa;
+$color-string: $color-value;
+
+
+
+body{
+  background: #eee;
+  margin: 0;
+}
+
+
+.c-page-column{
+  max-width:960px;
+  margin: 0 auto;
+}
+
+
+.c-top-bar{
+  background:#333;
+  line-height:2em;
+
+  >.e-inner{
+    @extend .c-page-column;
+
+    >.e-title{
+      color:white;
+
+    }
+
+  }
+}
+
+.c-main-column{
+  padding:1em;
+  background: white;
+}
+
+.c-json-press{
+
+  font-family:
+    Consolas, "Courier New", Courier, Monaco,
+    monospace, "ＭＳ ゴシック", "MS Gothic", Osaka−等幅;
+
+  line-height: 1;
+
+  *{ //全部、子にabsolute使いたい気がするので
+    position: relative;
+  }
+
+  .e-value{
+    display: inline-block;
+    margin-bottom: 1px;
+
+    &.m-object{
+      display: block;
+      background: $color-object;
+
+      &::before,
+      &::after{
+        clear: both;
+        display: block;
+        color: $color-token;
+
+      }
+
+      &::before{
+        content:"{";
+      }
+
+      &::after{
+        content:"}";
+      }
+
+      >.e-pair{
+        padding-left:$indent-width;
+        clear: both;
+
+        display: flex;
+        flex-direction: row;
+        align-items: flex-start;
+
+        //最後ではない要素の後に
+        &:not(:last-child){
+          &::after{
+            align-self: flex-end;
+            content: ",";
+            color: $color-token;
+          }
+          >.e-cont>.e-value.m-object::after{
+            content:"},"
+          }
+          >.e-cont>.e-value.m-array::after{
+            content:"],"
+          }
+        }
+
+        &.m-block{
+          flex-direction: column;
+          align-items: stretch;
+
+          &:not(:last-child)::after{
+            display:none;
+          }
+  
+          >.e-key{
+            margin-right: 0;
+          }
+
+          >.e-cont>.e-value.m-string{
+            display: block;
+            margin-left:  $indent-width;
+            line-height:1.2;
+
+            &::after{
+              content:"\","
+            }
+          }
+        }
+
+
+        >.e-key{
+          z-index:1; //relative より上
+          background: $color-key;
+
+          white-space: nowrap;
+
+          border-radius:3px;
+
+          display: flex;//keyの値と:を横に並べるため
+          margin-right:1ex;
+
+          >.e-value{
+            background: transparent;
+
+          }
+
+          &::after{
+            display: block;
+            content:":";
+            color: $color-token;
+          }
+        }
+        >.e-cont{
+        }
+      }
+
+
+    }
+
+    &.m-array{
+      display: block;
+
+      background:$color-array;
+
+      &.m-inline{
+        &::before,
+        &::after{
+          display: inline-block;
+        }
+
+        >.e-cont{
+          padding-left:0;
+          display: inline-block;
+
+          &:not(:last-child)::after{
+            position:static;
+          }
+        }
+
+
+      }
+      
+
+      &::before,
+      &::after{
+        clear: both;
+        display: block;
+        color: $color-token;
+      }
+
+      &::before{
+        content:"[";
+      }
+      &::after{
+        content:"]";
+      }
+
+      >.e-cont{
+        padding-left:$indent-width;
+
+        &.m-block:not(:last-child){
+
+          >.e-value.m-object{
+            &::after{
+              content: "},";
+            }
+          }
+          >.e-value.m-array{
+            &::after{
+              content: "],";
+            }
+          }
+          >.e-value.m-string{
+            &::after{
+              content: "\",";
+            }
+          }
+
+        }
+        &:not(.m-block):not(:last-child){
+          &::after{
+            color: $color-token;
+
+            content: ",";
+          }
+        }
+      }
+
+
+    }
+
+
+    &.m-string{
+      &::before,
+      &::after{
+        color: $color-token;
+        content:"\"";
+      }
+
+      background: $color-string;
+    }
+
+
+    &.m-number{
+
+      background: $color-value;
+    }
+
+    &.m-boolean{
+      background: $color-value;
+    }
+
+  }
+
+
+}
