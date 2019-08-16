@@ -91,13 +91,13 @@ export default class JsonPress extends Component{
     //// value types ////
   StringPress(string){
     return pug`
-      .e-value.m-string= string
+      .e-value.m-string(contentEditable=true)= string
     `;
   }
 
   NumberPress(number){
     return pug`
-      .e-value.m-number= number
+      .e-value.m-number(contentEditable=true)= number
     `;
   }
 
@@ -106,7 +106,7 @@ export default class JsonPress extends Component{
     console.log("bool");
     console.log(bool);
     return pug`
-      .e-value.m-boolean= bool ? "true":"false"
+      .e-value.m-boolean(contentEditable=true)= bool ? "true":"false"
     `
   }
 
