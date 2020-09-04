@@ -145,6 +145,6 @@
   "devDependencies": {
     "babel-plugin-transform-react-jsx": "^6.24.1",
     "babel-plugin-transform-react-pug": "^7.0.1",
-    "node-sass": "^4.12.0"
+    "node-sass": "^4.13.1"
   }
 }
